@@ -77,7 +77,9 @@ function checkFlippedEmojis() {
     }
 
     // Reset for next round
-    
+    flipCount = 0;
+    flippedEmojis = [];
+    flippedCards = [];
 }
 
 
