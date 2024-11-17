@@ -1,95 +1,119 @@
-let bodyElement=document.querySelector(".body-container");
-let cardContainer=document.createElement("div");
-cardContainer.classList.add("card-container");
-bodyElement.appendChild(cardContainer);
-let emojisList=['🥑','🥑','🌼','🌹','🦋','🌼','😊','🦋','🌹','😊','🌞','🐒','🌞','🐒','🌙'];
+let startGameButton = document.getElementById("start-game-button");
+let cardContainer = document.getElementById("card-container");
+let instructionTemplate = document.getElementById("instruction-template");
+let timerDisplay = document.getElementById("timer");
+let scoreDisplay = document.getElementById("score");
+let resultMessage = document.getElementById("result-message");
 
+let emojisList = ['🥑', '🥑', '🌼', '🌹', '🦋', '🌼', '😊', '🦋', '🌹', '😊', '🌞', '🐒', '🌞', '🐒', '🌙', '🌙'];
 emojisList.sort(() => 0.5 - Math.random());
 
-let flipCount = 0;
 let flippedEmojis = [];
 let flippedCards = [];
 let successCount = 0;
+let startTime = 0;
+let gameTimer;
+let totalTime = 60; // Game duration in seconds
 
+function createFlippedCard(emoji) {
+    let card = document.createElement("div");
+    card.classList.add("card");
 
-function createFlippedCard(emoji){
-    let cards=document.createElement("div");
-    cards.classList.add("card");
-
-    let cardInner=document.createElement("div");
+    let cardInner = document.createElement("div");
     cardInner.classList.add("card-inner");
 
-    let cardBack=document.createElement("div");
+    let cardBack = document.createElement("div");
     cardBack.classList.add("card-back");
-    cardBack.textContent="Flip Me!"
 
     let cardFront = document.createElement("div");
     cardFront.classList.add("card-front");
-    cardFront.textContent=emoji;
+    cardFront.textContent = emoji;
 
     cardInner.appendChild(cardBack);
     cardInner.appendChild(cardFront);
-    cards.appendChild(cardInner);
+    card.appendChild(cardInner);
 
-    cards.addEventListener("click",function(){
-        handleCardClick(cardInner,emoji,cards);
-    });
-    return cards;
+    cardInner.addEventListener("click", () => flipCard(cardInner, emoji));
+
+    return card;
 }
 
-function handleCardClick(cardInner, emoji, cardElement) {
-    if (
-        cardInner.classList.contains("flipped") || 
-        flippedCards.includes(cardElement)
-    ) return; // Prevent clicking already flipped cards
+function flipCard(cardInner, emoji) {
+    if (flippedCards.length < 2 && !cardInner.classList.contains("flipped")) {
+        cardInner.classList.add("flipped");
+        flippedEmojis.push(emoji);
+        flippedCards.push(cardInner);
 
-    cardInner.classList.add("flipped"); // Flip the card to show front
-    flippedCards.push(cardElement); // Track flipped cards
-    flippedEmojis.push(emoji);
-    flipCount++;
-
-    if (flipCount === 2) { // Match two cards
-        checkFlippedEmojis();
+        if (flippedCards.length === 2) {
+            checkMatch();
+        }
     }
 }
 
-function checkFlippedEmojis() {
+function checkMatch() {
     if (flippedEmojis[0] === flippedEmojis[1]) {
-        // Cards match, mark them as successful
-        flippedCards.forEach(card => {
-            card.querySelector(".card-inner").classList.add("success");
-        });
-        successCount += 2;
+        flippedCards[0].classList.add("success");
+        flippedCards[1].classList.add("success");
+        successCount++;
 
-        alert("Great! You matched the cards!");
+        flippedEmojis = [];
+        flippedCards = [];
 
-        if (successCount === emojisList.length) {
-            alert("Congratulations! You matched all the cards!");
+        if (successCount === emojisList.length / 2) {
+            clearInterval(gameTimer);
+            showResultMessage(true);
         }
     } else {
-        // Cards do not match, flip them back
         setTimeout(() => {
-            flippedCards.forEach(card => {
-                card.querySelector(".card-inner").classList.remove("flipped");
-            });
-            alert("Better luck next time! Try again.");
-        }, 600);
+            flippedCards[0].classList.remove("flipped");
+            flippedCards[1].classList.remove("flipped");
+            flippedEmojis = [];
+            flippedCards = [];
+        }, 1000);
     }
-
-    // Reset for next round
-    flipCount = 0;
-    flippedEmojis = [];
-    flippedCards = [];
 }
 
+function startGame() {
+    instructionTemplate.style.display = "none";
+    cardContainer.style.display = "grid";
+    createCards(cardContainer, emojisList);
 
+    startTime = Date.now();
+    gameTimer = setInterval(updateTimer, 1000);
+}
+
+function updateTimer() {
+    let elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+    timerDisplay.textContent = `Time: ${elapsedTime}s`;
+
+    if (elapsedTime >= totalTime) {
+        clearInterval(gameTimer);
+        showResultMessage(false);
+    }
+}
+
+function showResultMessage(isSuccess) {
+    resultMessage.style.display = "block";
+    resultMessage.textContent = isSuccess ? "Congratulations! You completed the game within 1 minute!" : "Better luck next time!";
+}
 
 function createCards(container, emojis) {
     emojis.forEach(emoji => {
         let card = createFlippedCard(emoji);
         container.appendChild(card);
     });
+
+    setTimeout(() => {
+        document.querySelectorAll('.card-inner').forEach(card => {
+            card.classList.add('flipped');
+        });
+
+        setTimeout(() => {
+            document.querySelectorAll('.card-inner').forEach(card => {
+                card.classList.remove('flipped');
+            });
+        }, 4000);
+    }, 0);
 }
 
-createCards(cardContainer, emojisList);
-
+startGameButton.addEventListener("click", startGame);

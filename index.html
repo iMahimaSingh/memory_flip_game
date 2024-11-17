@@ -3,13 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="index.css">
-    <title>Document</title>
+    <title>Memory game play</title>
 </head>
 <body>
-    <h1 style="text-align: center;">Memory Flip Game</h1>
-<div class="body-container"></div>
-<script  type="module" src="app.js"></script>
+    <div class="board-container">
+        <header>
+            <h1 class="heading">Memory Flip Game</h1>
+            <div class="stars-row">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i> 
+                <i class="fas fa-star"></i> 
+                <i class="fas fa-star"></i> 
+                <i class="fas fa-star"></i> 
+            </div>
+            <div class="game-info">
+                <span id="timer">Time: 0s</span>
+                
+            </div>
+        </header>
 
+        <div id="instruction-template" class="instruction-template">
+            <h2>How to Play</h2>
+            <ul class="instruction-list">
+                <li><strong>Step 1:</strong> First, 4000ms will be given to memorize the cards with emojis.</li>
+                <li><strong>Step 2:</strong> Match the pairs at a time.</li>
+                <li><strong>Step 3:</strong> The player who completes the game within 1 minute will be the winner.</li>
+            </ul>
+            <button id="start-game-button" class="start-btn">Start Game</button>
+        </div>
+        <div id="card-container" class="card-container" style="display: none;">
+        </div>
+        <div id="result-message" style="display: none;"></div>
+    </div>
+
+    <script type="module" src="app.js"></script>
 </body>
 </html>

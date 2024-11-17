@@ -1,70 +1,88 @@
 body, html {
-    margin: 0; /* Remove any default margin */
-    padding: 0; /* Remove any default padding */
-    height: 100%; /* Make sure body takes full height */
-    overflow: hidden;/* Prevent page from scrolling */
-  }
-  
-.body-container{
-    height:100vh;
-    overflow-y:hidden;
-    display:flex;
-    align-items: center; 
-    justify-content:center;
-    
-}
-.card-container{
-    display:grid;
-    /* flex-direction: row; */
-    grid-template-columns: repeat(5, 100px);
-    /* grid-template-rows: auto;  */
-     justify-content:space-around; 
-    background-color: beige;
-    width:80%;
-    height:80%;
-    border-radius:15px;
-    padding: 10px;
-}
-.card{
-    height:130px;
-    width:100px;
-    background-color:aquamarine;
-    margin:5px;
-    display:flex;
-    align-items: center;
-    justify-content:center;
-}
-
-.card-inner{
-    width:100%;
+    margin: 0;
+    padding: 0;
     height: 100%;
-    display:flex;
-    align-items: center;
-    justify-content:center;
-    transform-style:preserve-3d;
-    transition:transform 0.6s;
-    position:relative;
 }
 
-.card-back,.card-front{
-    position:absolute;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+.board-container {
+    background-image:url('https://images.pexels.com/photos/235985/pexels-photo-235985.jpeg?auto=compress&cs=tinysrgb&w=600');
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+}
+
+.heading {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 38px;
+    text-align: center;
+}
+
+.stars-row {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 30px;
+    color: gold;
+}
+
+.game-info {
+    margin-top: 10px;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 7px;
+    background: linear-gradient(to right, #FF7F50, #FF6347, #FF1493);
+    width: 50%;
+    border-radius: 15px;
+    padding: 10px;
+    justify-items: center;
+    align-items: center;
+}
+
+.card {
+    height: 160px;
+    width: 140px;
+    background-color: aquamarine;
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+    position: relative;
+}
+
+.card-back, .card-front {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     backface-visibility: hidden;
-    font-size:20px;
+    font-size: 20px;
 }
 
 .card-back {
-    /* background-color: lightgray; */
-    transform: rotateY(0deg); 
+    transform: rotateY(180deg);
 }
 
 .card-front {
     background-color: aquamarine;
-    transform:rotateY(180deg);
+    transform: rotateY(180deg);
 }
-
 
 .card-inner.flipped {
     transform: rotateY(180deg);
@@ -74,8 +92,68 @@ body, html {
     background-color: green;
 }
 
-/* .card:hover .card-inner {
-    transform: rotateY(180deg); /* Hover effect (optional) */
+.instruction-template {
+    display:flex;
+    align-items: center;
+    flex-direction:column;
+    justify-content: center;
+    background-color: #e88686;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    text-align: center;
+    margin: 10px 0;
+}
 
-  
+.instruction-template h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #4CAF50;
+}
 
+.instruction-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    font-size: 19px;
+    line-height: 1.6;
+    color: #555;
+}
+
+.instruction-list li {
+    
+    font-size:22px;
+}
+
+.instruction-list li strong {
+    color: #000;
+    padding-left:10px;
+}
+.start-btn {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.start-btn:hover {
+    background-color: #45a049;
+}
+
+
+#result-message {
+    font-size: 50px;
+    margin-top: 20px;
+    font-weight: bold;
+}
+#timer{
+    font-size:22px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color:#555;
+}
