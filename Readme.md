@@ -25,7 +25,7 @@ Here in the image below you can see the instruction template showing instruction
 
  In the image below you can see that all cards are matched  within 1 minute.Hence its give you congralution message at the bottom of the card-container.
 
- [Screenshot 2024-11-17 at 7 44 06 PM](https://github.com/user-attachments/assets/07f8ae87-bea0-4b9c-a61c-904f012c927e)
+ ![Screenshot 2024-11-17 at 7 44 06 PM](https://github.com/user-attachments/assets/07f8ae87-bea0-4b9c-a61c-904f012c927e)
 
  Image below shows that player was not able to match all cards within 1 minutes so it give message of better luck next time! in the  bottom of card-container.
 
