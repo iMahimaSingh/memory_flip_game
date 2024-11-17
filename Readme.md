@@ -1,42 +1,102 @@
-* used javascript key features
-- DOM manipulation to create dynamic card and element and made seamless user experience.
-- eventhandler to detect the flip cards and manage state.
-- array to store emojis and the cards and also to store flipped card .
-- conditionals and loop used to check whether the flipped card matched  or not if not than reset it .
--settimeout to delay the execution .
+# Memory Card Game
 
+## Overview  
+The **Memory Game** is a web-based application designed to challenge and enhance your memory skills. The objective is to match all the pairs of cards within the allotted time. This project uses JavaScript for dynamic behavior, CSS for styling, and HTML for structuring the application.
 
-![Screenshot 2024-11-16 at 8 49 55 PM](https://github.com/user-attachments/assets/e2564674-7c02-4598-a274-4de542bccaab)
-![Screenshot 2024-11-16 at 8 50 54 PM](https://github.com/user-attachments/assets/cc9eb1e4-50f7-497b-972b-8660016d957b)
-![Screenshot 2024-11-16 at 8 51 18 PM](https://github.com/user-attachments/assets/5299436a-061a-426a-9c05-bf5228b681e1)
+## Features  
 
+- **Dynamic Card Rendering**: Cards are dynamically created and displayed using DOM manipulation.  
+- **Interactive Gameplay**:  
+  - Event handlers detect card flips and manage game state seamlessly.  
+  - Array structures store cards, emojis, and track flipped cards.  
+- **Match Detection**: Conditional statements and loops check if the flipped cards match. If not, they reset to their initial state.  
+- **Timer Implementation**: A timer limits the time available to memorize and match the cards.  
+- **Delay Handling**: `setTimeout` is used to delay certain actions, such as flipping cards back after mismatches.  
 
-Here in the image below you can see the instruction template showing instruction how to play the game and a start game button.
+---
 
-![Screenshot 2024-11-17 at 7 41 40 PM](https://github.com/user-attachments/assets/04209e5d-f1f6-4257-8c59-6ad820e7661d)
+## How It Works  
 
- In the picture below you can seen that initially 4s is given to memorize the emojis on the card.
+1. **Instructions Screen**  
+   The game starts with an instruction template that explains the gameplay. A **Start Game** button initiates the game.  
 
- ![Screenshot 2024-11-17 at 7 42 12 PM](https://github.com/user-attachments/assets/cb10c9cb-bac2-4076-8b71-ac9a2e53ce12)
+2. **Memorization Phase**  
+   - Initially, the cards are displayed face-up for **4 seconds** to allow the player to memorize their positions.  
+   - After 4 seconds, the cards flip back to hide the emojis.  
 
- In the image below shows you that after 4s the card-front with emojis flip back and the timer continues.And its time for you to check how much you have memorized while seeing the emojis at initial of 4 sec  when the card was front side to memorize you the emojis.
+3. **Matching Phase**  
+   - Players flip the cards to find and match pairs.  
+   - A timer tracks the remaining time to complete the game.  
 
- ![Screenshot 2024-11-17 at 7 42 02 PM](https://github.com/user-attachments/assets/68df4994-5f00-41b7-a1a4-b5faded48956)
+4. **Game End**  
+   - If all cards are matched within the allotted time, a congratulatory message is displayed.  
+   - If the time runs out, a "Better luck next time!" message is shown.  
 
- In the image below you can see that all cards are matched  within 1 minute.Hence its give you congralution message at the bottom of the card-container.
+---
 
- ![Screenshot 2024-11-17 at 7 44 06 PM](https://github.com/user-attachments/assets/07f8ae87-bea0-4b9c-a61c-904f012c927e)
+## File Structure  
 
- Image below shows that player was not able to match all cards within 1 minutes so it give message of better luck next time! in the  bottom of card-container.
+All files are located in the `src` folder:
 
- ![Screenshot 2024-11-17 at 7 45 25 PM](https://github.com/user-attachments/assets/cebc12e8-e749-4c65-946b-897e90746adf)
+- **`index.html`**: The main HTML file containing the structure of the game.  
+- **`app.js`**: JavaScript file for game logic and DOM manipulation.  
+- **`index.css`**: Stylesheet for designing the game layout and visual elements.  
 
+---
 
+## Getting Started  
 
+### Prerequisites  
+To run this game, you'll need a modern web browser (e.g., Chrome, Firefox, Edge).  
 
+### Steps to Run Locally  
 
+1. **Clone the Repository**  
+   ```bash
+   git clone <repository_url>
+   cd <repository_name>
+   ```
 
+2. **Open the Game**  
+   Open the `index.html` file in a web browser to start playing.  
 
- 
+---
 
+## Technologies Used  
 
+- **HTML**: Structuring the game.  
+- **CSS**: Styling the user interface.  
+- **JavaScript**: Implementing the game logic and interactivity.  
+
+---
+
+## Contributing  
+
+Contributions are welcome! If you have ideas to enhance the game or fix issues, feel free to create a pull request or raise an issue.  
+
+---
+
+## License  
+
+This project is licensed under the MIT License.  
+
+--- 
+
+## Screenshots  
+
+### Instructions Template  
+![Instructions Template](https://github.com/user-attachments/assets/04209e5d-f1f6-4257-8c59-6ad820e7661d)
+
+### Memorization Phase  
+![Memorization Phase](https://github.com/user-attachments/assets/cb10c9cb-bac2-4076-8b71-ac9a2e53ce12)
+
+### Matching Phase  
+![Matching Phase](https://github.com/user-attachments/assets/68df4994-5f00-41b7-a1a4-b5faded48956)
+
+### Win Screen  
+![Win Screen](https://github.com/user-attachments/assets/07f8ae87-bea0-4b9c-a61c-904f012c927e)
+
+### Loss Screen  
+![Loss Screen](https://github.com/user-attachments/assets/cebc12e8-e749-4c65-946b-897e90746adf)
+
+Enjoy the game and test your memory skills! 😊
