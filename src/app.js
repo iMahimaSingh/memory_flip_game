@@ -1,34 +1,38 @@
-let startGameButton = document.getElementById("start-game-button");
-let cardContainer = document.getElementById("card-container");
-let instructionTemplate = document.getElementById("instruction-template");
-let timerDisplay = document.getElementById("timer");
-let scoreDisplay = document.getElementById("score");
-let resultMessage = document.getElementById("result-message");
+// DOM Elements
+const startGameButton = document.getElementById("start-game-button");
+const cardContainer = document.getElementById("card-container");
+const instructionTemplate = document.getElementById("instruction-template");
+const timerDisplay = document.getElementById("timer");
+const scoreDisplay = document.getElementById("score");
+const resultMessage = document.getElementById("result-message");
 
-let emojisList = ['🥑', '🥑', '🌼', '🌹', '🦋', '🌼', '😊', '🦋', '🌹', '😊', '🌞', '🐒', '🌞', '🐒', '🌙', '🌙'];
-emojisList.sort(() => 0.5 - Math.random());
+// Game Variables
+const emojisList = ['🥑', '🥑', '🌼', '🌹', '🦋', '🌼', '😊', '🦋', '🌹', '😊', '🌞', '🐒', '🌞', '🐒', '🌙', '🌙'];
+emojisList.sort(() => 0.5 - Math.random()); // Shuffle emojis
 
 let flippedEmojis = [];
 let flippedCards = [];
 let successCount = 0;
 let startTime = 0;
 let gameTimer;
-let totalTime = 60; // Game duration in seconds
+const totalTime = 60; // Game duration in seconds
 
+// Create flipped card element
 function createFlippedCard(emoji) {
-    let card = document.createElement("div");
+    const card = document.createElement("div");
     card.classList.add("card");
 
-    let cardInner = document.createElement("div");
+    const cardInner = document.createElement("div");
     cardInner.classList.add("card-inner");
 
-    let cardBack = document.createElement("div");
+    const cardBack = document.createElement("div");
     cardBack.classList.add("card-back");
 
-    let cardFront = document.createElement("div");
+    const cardFront = document.createElement("div");
     cardFront.classList.add("card-front");
     cardFront.textContent = emoji;
 
+    // Append elements
     cardInner.appendChild(cardBack);
     cardInner.appendChild(cardFront);
     card.appendChild(cardInner);
@@ -38,6 +42,7 @@ function createFlippedCard(emoji) {
     return card;
 }
 
+// Flip card logic
 function flipCard(cardInner, emoji) {
     if (flippedCards.length < 2 && !cardInner.classList.contains("flipped")) {
         cardInner.classList.add("flipped");
@@ -50,6 +55,7 @@ function flipCard(cardInner, emoji) {
     }
 }
 
+// Check if two flipped cards match
 function checkMatch() {
     if (flippedEmojis[0] === flippedEmojis[1]) {
         flippedCards[0].classList.add("success");
@@ -73,6 +79,7 @@ function checkMatch() {
     }
 }
 
+// Start the game
 function startGame() {
     instructionTemplate.style.display = "none";
     cardContainer.style.display = "grid";
@@ -82,8 +89,9 @@ function startGame() {
     gameTimer = setInterval(updateTimer, 1000);
 }
 
+// Update timer display
 function updateTimer() {
-    let elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+    const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
     timerDisplay.textContent = `Time: ${elapsedTime}s`;
 
     if (elapsedTime >= totalTime) {
@@ -92,22 +100,30 @@ function updateTimer() {
     }
 }
 
+// Display result message
 function showResultMessage(isSuccess) {
     resultMessage.style.display = "block";
     resultMessage.textContent = isSuccess ? "Congratulations! You completed the game within 1 minute!" : "Better luck next time!";
 }
 
+// Create and append cards to container
 function createCards(container, emojis) {
+    const fragment = document.createDocumentFragment(); // Create a DocumentFragment
+
     emojis.forEach(emoji => {
-        let card = createFlippedCard(emoji);
-        container.appendChild(card);
+        const card = createFlippedCard(emoji);
+        fragment.appendChild(card); // Append cards to the fragment
     });
 
+    container.appendChild(fragment); // Append the fragment to the container
+
+    // Temporarily flip all cards to hide emojis
     setTimeout(() => {
         document.querySelectorAll('.card-inner').forEach(card => {
             card.classList.add('flipped');
         });
 
+        // Unflip cards after 4 seconds
         setTimeout(() => {
             document.querySelectorAll('.card-inner').forEach(card => {
                 card.classList.remove('flipped');
@@ -116,4 +132,5 @@ function createCards(container, emojis) {
     }, 0);
 }
 
+// Event Listener for starting the game
 startGameButton.addEventListener("click", startGame);
