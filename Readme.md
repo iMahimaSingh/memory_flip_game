@@ -134,7 +134,7 @@ When all pairs are matched, the game displays a "You Won!"** message along with 
 - Enhanced Performance: Removing matched cards minimizes the workload for the browser, making rendering faster.  
 - Simplified Game Flow: Reducing DOM complexity ensures smoother animations and responsive gameplay.
 
-Feel free to clone this project and explore the latest features!  
+Feel free to clone this project and explore the latest features. 
 
 Enjoy the game and test your memory skills! 😊
 
