@@ -99,4 +99,47 @@ This project is licensed under the MIT License.
 ### Loss Screen  
 ![Loss Screen](https://github.com/user-attachments/assets/cebc12e8-e749-4c65-946b-897e90746adf)
 
+# Memory Flip Game
+
+#Updated Features 🎉  
+The game now includes exciting visual and interactive enhancements for an improved user experience. Check out the latest updates:
+
+### 1. Mismatch Visual Feedback 
+When two flipped cards don't match, their backgrounds turn **red**, providing immediate visual feedback for incorrect pairs.  
+![Mismatch Feedback](https://github.com/user-attachments/assets/1e35e98c-e244-4f6b-9c69-2dea91e08a2a)
+
+### 2. Match Visual Feedback  
+Matched card pairs are highlighted with a **green background**, giving players a satisfying visual confirmation.  
+![Match Feedback](https://github.com/user-attachments/assets/994a83a9-2d4a-4f96-9346-efbe7639e38d)
+
+### 3. Automatic Removal of Matched Cards  
+After a delay of **500ms**, matched cards are seamlessly removed from the game board, decluttering the interface.  
+![Cards Removed](https://github.com/user-attachments/assets/f9c625d2-b726-4183-93a6-787724a28c51)
+
+### 4. Win Message and Score Display  
+When all pairs are matched, the game displays a "You Won!"** message along with your final score, leaving no cards in the container.  
+![Winning Screen](https://github.com/user-attachments/assets/d58de344-dead-474e-8ac7-017ccb0c9bc3)
+
+---
+
+## How It Works 💡  
+- Real-Time Feedback: Immediate visual effects help players track their progress.  
+- Efficient DOM Manipulation: Matched cards are removed dynamically, reducing the number of elements in the DOM and improving game performance.  
+- Engaging Gameplay: Color-coded feedback enhances the interactive experience, while the score system adds an element of challenge.
+
+---
+
+## Why These Updates Matter 🚀  
+- Improved User Experience: Players get clear visual cues for every action.  
+- Enhanced Performance: Removing matched cards minimizes the workload for the browser, making rendering faster.  
+- Simplified Game Flow: Reducing DOM complexity ensures smoother animations and responsive gameplay.
+
+Feel free to clone this project and explore the latest features!  
+
 Enjoy the game and test your memory skills! 😊
+
+
+
+
+
+

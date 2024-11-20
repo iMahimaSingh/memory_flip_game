@@ -12,10 +12,12 @@ emojisList.sort(() => 0.5 - Math.random()); // Shuffle emojis
 
 let flippedEmojis = [];
 let flippedCards = [];
-let successCount = 0;
+let score = 0;
 let startTime = 0;
 let gameTimer;
+let memorizationTimer;
 const totalTime = 60; // Game duration in seconds
+const memorizationTime = 4; // 4 seconds for memorization
 
 // Create flipped card element
 function createFlippedCard(emoji) {
@@ -44,7 +46,7 @@ function createFlippedCard(emoji) {
 
 // Flip card logic
 function flipCard(cardInner, emoji) {
-    if (flippedCards.length < 2 && !cardInner.classList.contains("flipped")) {
+    if (flippedCards.length < 2 && !cardInner.classList.contains("flipped") && !cardInner.classList.contains("matched")) {
         cardInner.classList.add("flipped");
         flippedEmojis.push(emoji);
         flippedCards.push(cardInner);
@@ -60,77 +62,105 @@ function checkMatch() {
     if (flippedEmojis[0] === flippedEmojis[1]) {
         flippedCards[0].classList.add("success");
         flippedCards[1].classList.add("success");
-        successCount++;
 
-        flippedEmojis = [];
-        flippedCards = [];
+        // Hide matched cards and remove them from the container
+        setTimeout(() => {
+            flippedCards[0].classList.add("matched");
+            flippedCards[1].classList.add("matched");
 
-        if (successCount === emojisList.length / 2) {
-            clearInterval(gameTimer);
-            showResultMessage(true);
-        }
+            flippedCards[0].parentElement.style.backgroundColor = "green";
+            flippedCards[1].parentElement.style.backgroundColor = "green";
+
+            score++;
+            updateScore();
+
+            // Remove only the matched cards from the container (not the entire board)
+            flippedCards[0].parentElement.remove();  // Remove the first matched card
+            flippedCards[1].parentElement.remove();  // Remove the second matched card
+
+            flippedEmojis = [];
+            flippedCards = [];
+
+            if (score === emojisList.length / 2) {
+                clearInterval(gameTimer);
+                showResultMessage(true);
+            }
+        }, 500);
+
     } else {
+        flippedCards[0].parentElement.style.backgroundColor = "red";
+        flippedCards[1].parentElement.style.backgroundColor = "red";
+
         setTimeout(() => {
             flippedCards[0].classList.remove("flipped");
             flippedCards[1].classList.remove("flipped");
+            flippedCards[0].parentElement.style.backgroundColor = "";
+            flippedCards[1].parentElement.style.backgroundColor = "";
+
             flippedEmojis = [];
             flippedCards = [];
-        }, 1000);
+        }, 2000);
     }
 }
 
-// Start the game
-function startGame() {
-    instructionTemplate.style.display = "none";
-    cardContainer.style.display = "grid";
-    createCards(cardContainer, emojisList);
-
-    startTime = Date.now();
-    gameTimer = setInterval(updateTimer, 1000);
+// Update score on screen
+function updateScore() {
+    scoreDisplay.textContent = `Score: ${score}`;
 }
 
-// Update timer display
+// Update timer on screen
 function updateTimer() {
-    const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
-    timerDisplay.textContent = `Time: ${elapsedTime}s`;
+    const elapsed = Math.floor((Date.now() - startTime) / 1000);
+    timerDisplay.textContent = `Time: ${elapsed}s`;
 
-    if (elapsedTime >= totalTime) {
+    if (elapsed >= totalTime) {
         clearInterval(gameTimer);
         showResultMessage(false);
     }
 }
 
-// Display result message
+// Show result message
 function showResultMessage(isSuccess) {
+    resultMessage.textContent = isSuccess ? "You Won!" : "Game Over!";
     resultMessage.style.display = "block";
-    resultMessage.textContent = isSuccess ? "Congratulations! You completed the game within 1 minute!" : "Better luck next time!";
 }
 
-// Create and append cards to container
-function createCards(container, emojis) {
-    const fragment = document.createDocumentFragment(); // Create a DocumentFragment
+// Start the game
+function startGame() {
+    startGameButton.style.display = "none";
+    instructionTemplate.style.display = "none";
+    cardContainer.style.display = "grid";
+    score = 0;
+    updateScore();
 
-    emojis.forEach(emoji => {
+    emojisList.forEach(emoji => {
         const card = createFlippedCard(emoji);
-        fragment.appendChild(card); // Append cards to the fragment
+        cardContainer.appendChild(card);
     });
 
-    container.appendChild(fragment); // Append the fragment to the container
+    // Show all cards for memorization
+    cardContainer.childNodes.forEach(card => {
+        card.querySelector(".card-inner").classList.add("flipped");
+    });
 
-    // Temporarily flip all cards to hide emojis
+    // Wait for 4 seconds to show all cards
     setTimeout(() => {
-        document.querySelectorAll('.card-inner').forEach(card => {
-            card.classList.add('flipped');
+        cardContainer.childNodes.forEach(card => {
+            card.querySelector(".card-inner").classList.remove("flipped");
         });
 
-        // Unflip cards after 4 seconds
-        setTimeout(() => {
-            document.querySelectorAll('.card-inner').forEach(card => {
-                card.classList.remove('flipped');
+        // Start the game timer and memorization phase
+        startTime = Date.now();
+        gameTimer = setInterval(updateTimer, 1000);
+
+        // Set memorization timer (4 seconds)
+        memorizationTimer = setTimeout(() => {
+            cardContainer.childNodes.forEach(card => {
+                card.querySelector(".card-inner").classList.remove("flipped");
             });
-        }, 4000);
-    }, 0);
+        }, memorizationTime * 1000);
+    }, 4000);
 }
 
-// Event Listener for starting the game
+// Initialize Game
 startGameButton.addEventListener("click", startGame);

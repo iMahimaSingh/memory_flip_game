@@ -1,11 +1,18 @@
-body, html {
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
     height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* You can change this color */
 }
 
 .board-container {
-    background-image:url('https://images.pexels.com/photos/235985/pexels-photo-235985.jpeg?auto=compress&cs=tinysrgb&w=600');
+    background-image: url('https://images.pexels.com/photos/235985/pexels-photo-235985.jpeg?auto=compress&cs=tinysrgb&w=600');
+    background-size: cover;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -28,7 +35,12 @@ body, html {
 }
 
 .game-info {
+    display:flex;
+    flex-direction:row;
+    justify-content:space-around;
     margin-top: 10px;
+    font-size: 20px;
+    color: #ffffff;
 }
 
 .card-container {
@@ -93,9 +105,8 @@ body, html {
 }
 
 .instruction-template {
-    display:flex;
-    align-items: center;
-    flex-direction:column;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     background-color: #e88686;
     padding: 20px;
@@ -114,22 +125,11 @@ body, html {
 
 .instruction-list {
     list-style-type: none;
-    padding: 0;
-    margin: 0;
-    font-size: 19px;
+    font-size: 22px;
     line-height: 1.6;
     color: #020101;
 }
 
-.instruction-list li {
-    
-    font-size:22px;
-}
-
-.instruction-list li strong {
-    color: #000;
-    padding-left:10px;
-}
 .start-btn {
     background-color: #4CAF50;
     color: white;
@@ -146,14 +146,19 @@ body, html {
     background-color: #45a049;
 }
 
-
 #result-message {
     font-size: 50px;
     margin-top: 20px;
     font-weight: bold;
 }
-#timer{
-    font-size:25px;
+
+#timer {
+    font-size: 25px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    color:#040202;
+    color: #040202;
+}
+
+#score {
+    font-size: 25px;
+    color: #040202;
 }
